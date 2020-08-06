@@ -1128,6 +1128,44 @@ def virtual_potential_temperature(pressure, temperature, mixing_ratio,
 
 @exporter.export
 @preprocess_xarray
+@check_units('[temperature]', '[dimensionless]', '[dimensionless]')
+def density_temperature(temperature, vapor_mixing_ratio, total_mixing_ratio, 
+                        molecular_weight_ratio=mpconsts.epsilon):
+    r"""Calculate density temperature.
+    
+    This calculation must be given an air parcel's temperature, water vapor mixing ratio, and
+    total water mixing ratio (including hydrometeors).
+    The implementation uses the formula outlined in [Markowski2010]_ pg.13.
+
+    Parameters
+    ----------
+    temperature : `pint.Quantity`
+        air temperature
+    vapor_mixing_ratio : `pint.Quantity`
+        dimensionless water vapor mass mixing ratio
+    total_mixing_ratio : `pint.Quantity`
+        dimensionless total water mass mixing ratio
+    molecular_weight_ratio : `pint.Quantity` or float, optional
+        The ratio of the molecular weight of the constituent gas to that assumed
+        for air. Defaults to the ratio for water vapor to dry air.
+        (:math:`\epsilon\approx0.622`).
+
+    Returns
+    -------
+    `pint.Quantity`
+        The corresponding density temperature of the parcel
+    
+    Notes
+    -----
+    .. math:: T_{\rho} = T \frac{w_{v} + \epsilon}{\epsilon\,(1 + w_{tot})}
+
+    """
+    return temperature * ((vapor_mixing_ratio + molecular_weight_ratio)
+                          / (molecular_weight_ratio * (1 + total_mixing_ratio)))
+
+
+@exporter.export
+@preprocess_xarray
 @check_units('[pressure]', '[temperature]', '[dimensionless]', '[dimensionless]')
 def density(pressure, temperature, mixing_ratio, molecular_weight_ratio=mpconsts.epsilon):
     r"""Calculate density.
