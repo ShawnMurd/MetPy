@@ -1132,7 +1132,7 @@ def virtual_potential_temperature(pressure, temperature, mixing_ratio,
 def density_temperature(temperature, vapor_mixing_ratio, total_mixing_ratio, 
                         molecular_weight_ratio=mpconsts.epsilon):
     r"""Calculate density temperature.
-    
+
     This calculation must be given an air parcel's temperature, water vapor mixing ratio, and
     total water mixing ratio (including hydrometeors).
     The implementation uses the formula outlined in [Markowski2010]_ pg.13.
@@ -1154,7 +1154,7 @@ def density_temperature(temperature, vapor_mixing_ratio, total_mixing_ratio,
     -------
     `pint.Quantity`
         The corresponding density temperature of the parcel
-    
+
     Notes
     -----
     .. math:: T_{\rho} = T \frac{w_{v} + \epsilon}{\epsilon\,(1 + w_{tot})}
