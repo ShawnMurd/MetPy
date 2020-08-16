@@ -40,7 +40,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx_gallery.gen_gallery',
     'matplotlib.sphinxext.plot_directive',
-    'm2r'
+    'myst_parser'
 ]
 
 sphinx_gallery_conf = {
@@ -65,7 +65,7 @@ intersphinx_mapping = {
                        # 'pint': ('http://pint.readthedocs.io/en/stable/', None),
                        'matplotlib': ('https://matplotlib.org/', None),
                        'python': ('https://docs.python.org/3/', None),
-                       'numpy': ('https://docs.scipy.org/doc/numpy/', None),
+                       'numpy': ('https://numpy.org/doc/stable/', None),
                        'scipy': ('https://docs.scipy.org/doc/scipy/reference/', None),
                        'xarray': ('https://xarray.pydata.org/en/stable/', None)
                        }
@@ -344,3 +344,5 @@ linkcheck_ignore = [r'https://www\.youtube\.com/watch\?v=[\d\w\-_]+',
     r'https://youtu\.be/[\d\w\-_]+',
     # AMS DOIs should be stable, but resolved link consistently 403's with linkcheck
     r'https://doi.org/10.1175/.*']
+
+linkcheck_request_headers = {'https://www.ncdc.noaa.gov/': {'Accept-Encoding': 'deflate'}}
